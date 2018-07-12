@@ -46,20 +46,30 @@ window.computeUsersStats=(users,progress,courses)=>{
                            lessonsRead.forEach((objRead)=>{
                               //console.log(objRead.completed);
                               completed+=objRead.completed;
-                            });
+                              
+                           });
                            total+=lessonsRead.length;
                            break;
                         case "quiz":
                             const lessonsQuizzes=partsOfUnits.filter(objLesson=>objLesson.type==="quiz");
                             //console.log(lessonsQuizzes);
                             lessonsQuizzes.forEach((objQuiz)=>{
+                             //console.log(objQuiz.completed);
+                             //console.log(objQuiz.score);
+                              //console.log(scoreSum/lessonsQuizzes.length);
                               completed+=objQuiz.completed;
+                             
                               if(objQuiz.hasOwnProperty('score')){
-                                scoreSum+=objQuiz.score;
-                              }
-                            })
+                                  scoreSum+=objQuiz.score;
+                                  
+                                }else{
+                                    scoreSum+=0;
+                                   
+                                }
+                                
+                               
+                            });
                             total+=lessonsQuizzes.length;
-                            
                            break;
                         default:
                             
@@ -87,9 +97,7 @@ window.computeUsersStats=(users,progress,courses)=>{
         if(type==="quiz"){
             if(completed!=0){
              answer.scoreSum=scoreSum;
-             answer.scoreAvg=scoreSum/total
-             
-             ;
+             answer.scoreAvg=scoreSum/total;
             }else{
              answer.scoreAvg=0;
             }
